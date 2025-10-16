@@ -1,0 +1,29 @@
+{
+  "name": "order-management-system",
+  "version": "1.0.0",
+  "description": "Order management system with master assignment and ADL enforcement",
+  "author": "[Your Full Name Here]",
+  "scripts": {
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "cd backend && npm run build && cd ../frontend && npm run build",
+    "start": "cd backend && npm start",
+    "db:init": "cd backend && npm run db:init",
+    "test": "cd backend && npm test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "order-management",
+    "assignment",
+    "adl",
+    "haversine",
+    "express",
+    "react",
+    "typescript",
+    "sqlite"
+  ]
+}
