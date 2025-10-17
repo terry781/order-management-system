@@ -43,8 +43,21 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({
   };
 
   return (
-    <div className="card">
-      <h2>Order Details - #{order.id}</h2>
+    <div className="card" style={{ 
+      border: "2px solid #007bff",
+      backgroundColor: "#f8f9ff"
+    }}>
+      <h2 style={{ color: "#007bff" }}>
+        📋 Order Details - #{order.id}
+        <span style={{ 
+          fontSize: "12px", 
+          fontWeight: "normal", 
+          color: "#666",
+          marginLeft: "10px"
+        }}>
+          (Click another order row to view different details)
+        </span>
+      </h2>
 
       <div className="order-details">
         <div className="detail-row">
@@ -80,7 +93,12 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({
       </div>
 
       {/* ADL Media */}
-      <h3 style={{ marginTop: "20px", marginBottom: "10px" }}>ADL Evidence</h3>
+      <h3 style={{ marginTop: "20px", marginBottom: "10px", color: "#333" }}>
+        📸 ADL Evidence (After Delivery Live)
+      </h3>
+      <p style={{ fontSize: "12px", color: "#666", marginBottom: "15px" }}>
+        ADL evidence is required to complete orders. Must include GPS coordinates and timestamp.
+      </p>
       {order.adlMedia && order.adlMedia.length > 0 ? (
         <div>
           {order.adlMedia.map((adl: ADLMedia) => (
@@ -102,7 +120,16 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({
           ))}
         </div>
       ) : (
-        <p style={{ color: "#999" }}>No ADL evidence attached yet</p>
+        <div style={{ 
+          padding: "15px", 
+          backgroundColor: "#fff3cd", 
+          border: "1px solid #ffeaa7",
+          borderRadius: "4px",
+          color: "#856404"
+        }}>
+          ⚠️ <strong>No ADL evidence attached yet</strong><br/>
+          <small>You must attach ADL evidence before completing this order.</small>
+        </div>
       )}
 
       {/* Add ADL Form */}
@@ -180,8 +207,20 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({
               type="submit"
               className="btn btn-primary"
               disabled={loading}
+              style={{
+                padding: "12px 24px",
+                fontSize: "14px",
+                fontWeight: "bold",
+                borderRadius: "6px",
+                border: "1px solid #007bff",
+                backgroundColor: "#007bff",
+                color: "white",
+                cursor: loading ? "not-allowed" : "pointer",
+                opacity: loading ? 0.6 : 1
+              }}
+              title="Attach After Delivery Live (ADL) evidence with GPS coordinates and timestamp"
             >
-              Attach ADL
+              📸 Attach ADL Evidence
             </button>
           </form>
         </>

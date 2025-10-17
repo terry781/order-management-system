@@ -11,6 +11,7 @@
     "build": "cd backend && npm run build && cd ../frontend && npm run build",
     "start": "cd backend && npm start",
     "db:init": "cd backend && npm run db:init",
+    "db:sample": "cd backend && npm run db:sample",
     "test": "cd backend && npm test"
   },
   "devDependencies": {

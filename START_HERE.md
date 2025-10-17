@@ -18,7 +18,15 @@ npm run install:all
 npm run db:init
 ```
 
-### 3️⃣ Start the Application
+### 3️⃣ Create Sample Data (Optional)
+
+To see the dashboard with realistic data:
+
+```bash
+npm run db:sample
+```
+
+### 4️⃣ Start the Application
 
 ```bash
 npm run dev
@@ -27,6 +35,7 @@ npm run dev
 This starts both:
 - **Backend API**: http://localhost:3001
 - **Frontend UI**: http://localhost:3000
+- **API Documentation**: http://localhost:3001/api-docs
 
 ### 4️⃣ Open Your Browser
 

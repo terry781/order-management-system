@@ -23,13 +23,23 @@ npm run db:init
 
 This creates the database with 5 sample masters and 1 sample order.
 
-### 3. Start the Servers (5 seconds)
+### 3. Create Sample Data (Optional)
+
+```bash
+npm run db:sample
+```
+
+This creates 8 realistic orders with various statuses and ADL evidence.
+
+### 4. Start the Servers (5 seconds)
 
 ```bash
 npm run dev
 ```
 
 This starts both backend (port 3001) and frontend (port 3000).
+
+**API Documentation**: http://localhost:3001/api-docs
 
 ### 4. Open the App
 

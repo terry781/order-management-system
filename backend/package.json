@@ -9,6 +9,7 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "db:init": "node scripts/init-db.js",
+    "db:sample": "node scripts/create-sample-data.js",
     "test": "jest --testTimeout=10000"
   },
   "dependencies": {

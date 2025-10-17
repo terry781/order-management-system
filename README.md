@@ -97,7 +97,17 @@ npm run install:all
 npm run db:init
 ```
 
-### 3. Start Development Servers
+### 3. Create Sample Data (Optional)
+
+To populate the dashboard with realistic test data:
+
+```bash
+npm run db:sample
+```
+
+This creates 8 sample orders with various statuses, customer information, and ADL evidence.
+
+### 4. Start Development Servers
 
 ```bash
 npm run dev
@@ -160,6 +170,10 @@ http://localhost:3001/api
 
 - `GET /api/masters` - List masters
 
+### Interactive API Documentation
+
+**Swagger UI**: http://localhost:3001/api-docs
+
 ### Example API Usage
 
 ```bash
@@ -170,6 +184,7 @@ curl -X POST http://localhost:3001/api/orders \
     "title": "Fix plumbing issue",
     "description": "Kitchen sink is leaking",
     "customerName": "Jane Doe",
+    "customerPhone": "+1-555-0123",
     "geo": {"lat": 40.7580, "lng": -73.9855}
   }'
 
@@ -188,6 +203,12 @@ curl -X POST http://localhost:3001/api/orders/1/adl \
 
 # Complete order
 curl -X POST http://localhost:3001/api/orders/1/complete
+
+# Get order details
+curl http://localhost:3001/api/orders/1
+
+# List all masters
+curl http://localhost:3001/api/masters
 ```
 
 ## Project Structure
