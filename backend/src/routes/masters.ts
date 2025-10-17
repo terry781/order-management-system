@@ -6,7 +6,23 @@ import { Logger } from "../middleware/logger";
 const router = express.Router();
 
 /**
- * GET /api/masters - Get all masters with load information
+ * @swagger
+ * /masters:
+ *   get:
+ *     summary: Get all masters with load information
+ *     description: Retrieve a list of all masters with their current load and availability status
+ *     tags: [Masters]
+ *     responses:
+ *       200:
+ *         description: List of masters retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Master'
+ *       500:
+ *         $ref: '#/components/responses/InternalServerError'
  */
 router.get("/", asyncHandler(async (req: any, res: any) => {
   Logger.debug("Fetching all masters with load information");
