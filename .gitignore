@@ -3,6 +3,11 @@ node_modules/
 backend/node_modules/
 frontend/node_modules/
 
+# Package lock files
+package-lock.json
+backend/package-lock.json
+frontend/package-lock.json
+
 # Build outputs
 dist/
 backend/dist/
