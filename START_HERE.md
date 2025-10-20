@@ -6,6 +6,23 @@ This is a complete, production-quality order management system with intelligent 
 
 ## ⚡ Quick Start (3 Minutes)
 
+### 🚀 Automated Setup (Easiest)
+
+**Windows:**
+```bash
+setup.bat
+```
+
+**Linux/Mac:**
+```bash
+chmod +x setup.sh
+./setup.sh
+```
+
+This automatically handles everything below!
+
+### 📋 Manual Setup
+
 ### 1️⃣ Install Dependencies
 
 ```bash
@@ -36,6 +53,7 @@ This starts both:
 - **Backend API**: http://localhost:3001
 - **Frontend UI**: http://localhost:3000
 - **API Documentation**: http://localhost:3001/api-docs
+- **OpenAPI JSON**: http://localhost:3001/api-docs/openapi.json
 
 ### 4️⃣ Open Your Browser
 
@@ -57,7 +75,7 @@ That's it! You're ready to use the system.
    - System auto-selects the best master
 
 3. **View Details**
-   - Click "View" to see order info
+   - Click any order row to see details
 
 4. **Attach Evidence**
    - Add a photo with GPS + timestamp
@@ -144,15 +162,18 @@ order-management-system/
 │   │   ├── lib/               # Business logic
 │   │   └── server.ts          # Express server
 │   ├── __tests__/             # Unit tests
+│   ├── public/                # Static files (OpenAPI JSON)
 │   └── package.json
 ├── frontend/                   # React app
 │   ├── src/
 │   │   ├── App.tsx            # Main component
 │   │   └── types.ts           # Frontend types
 │   └── package.json
+├── .env.example               # Environment configuration template
+├── postman-collection.json    # API testing collection
 ├── package.json               # Root scripts
 ├── README.md                  # Full documentation
-└── QUICKSTART.md              # This file
+└── START_HERE.md              # This file
 ```
 
 ## 🧪 Test the System
@@ -195,7 +216,8 @@ curl -X POST http://localhost:3001/api/orders/2/complete
 ✅ **Type Safety** - Full TypeScript with proper types  
 ✅ **Testing** - Unit tests for critical components  
 ✅ **Documentation** - Comprehensive guides and examples  
-✅ **Developer Experience** - Multiple ways to test and explore
+✅ **Developer Experience** - Multiple ways to test and explore  
+✅ **Professional Polish** - Environment config, API collections, static exports
 
 ## 🐛 Troubleshooting
 
@@ -256,9 +278,10 @@ Want to see the interesting parts?
 
 1. ✅ Run `npm run install:all && npm run db:init && npm run dev`
 2. ✅ Test the complete flow via UI or cURL
-3. ✅ Explore the code and tests
-4. ✅ Read the README for full details
-5. ✅ Update your name in README.md
+3. ✅ Import `postman-collection.json` for API testing
+4. ✅ Explore the code and tests
+5. ✅ Read the README for full details
+6. ✅ Update your name in README.md
 
 ## 💡 Need Help?
 
@@ -282,5 +305,6 @@ This is a **complete, production-ready** order management system with:
 - ✅ **Unit tests** for critical components
 - ✅ **Comprehensive documentation**
 - ✅ **Easy setup** with npm scripts
+- ✅ **Professional polish** (environment config, API collections, static exports)
 
 **Built with** ❤️ **using Express.js, React, TypeScript, and SQLite**

@@ -9,6 +9,23 @@ Get the Order Management System up and running in 3 minutes!
 
 ## Installation
 
+### 🚀 Automated Setup (Easiest)
+
+**Windows:**
+```bash
+setup.bat
+```
+
+**Linux/Mac:**
+```bash
+chmod +x setup.sh
+./setup.sh
+```
+
+This handles all steps below automatically!
+
+### 📋 Manual Setup
+
 ### 1. Install Dependencies (1 minute)
 
 ```bash
@@ -39,7 +56,8 @@ npm run dev
 
 This starts both backend (port 3001) and frontend (port 3000).
 
-**API Documentation**: http://localhost:3001/api-docs
+**API Documentation**: http://localhost:3001/api-docs  
+**OpenAPI JSON**: http://localhost:3001/api-docs/openapi.json
 
 ### 4. Open the App
 
@@ -60,7 +78,7 @@ Navigate to: **http://localhost:3000**
    - System automatically finds the best master
 
 3. **View Details**
-   - Click "View" button
+   - Click any order row to see details
    - See assigned master and order info
 
 4. **Attach ADL Evidence**
@@ -141,9 +159,35 @@ Use these for testing different locations:
 - Brooklyn Bridge: `40.7061, -73.9969`
 - Empire State Building: `40.7484, -73.9857`
 
+## Project Structure
+
+```
+order-management-system/
+├── backend/                    # Express.js API
+│   ├── src/
+│   │   ├── routes/            # API endpoints
+│   │   ├── lib/               # Business logic
+│   │   └── server.ts          # Express server
+│   ├── __tests__/             # Unit tests
+│   ├── public/                # Static files (OpenAPI JSON)
+│   └── package.json
+├── frontend/                   # React app
+│   ├── src/
+│   │   ├── App.tsx            # Main component
+│   │   └── types.ts           # Frontend types
+│   └── package.json
+├── .env.example               # Environment configuration template
+├── postman-collection.json    # API testing collection
+├── package.json               # Root scripts
+├── setup.bat                  # Windows setup script
+├── setup.sh                   # Linux/Mac setup script
+└── README.md                  # Full documentation
+```
+
 ## Next Steps
 
 - Read the full [README.md](README.md) for detailed documentation
+- Import `postman-collection.json` for complete API testing
 - Run tests: `npm test`
 - Explore the code in `backend/src/` and `frontend/src/`
 
@@ -185,4 +229,5 @@ Check the full README or explore the well-documented code!
 ✅ **Type Safety** - Full TypeScript with proper types  
 ✅ **Testing** - Unit tests for critical components  
 ✅ **Documentation** - Comprehensive guides and examples  
-✅ **Developer Experience** - Multiple ways to test and explore
+✅ **Developer Experience** - Multiple ways to test and explore  
+✅ **Professional Polish** - Environment config, API collections, static exports

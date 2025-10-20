@@ -85,19 +85,53 @@ A complete order management system with intelligent master assignment and ADL (A
 - Node.js 18+ installed
 - npm package manager
 
-### 1. Install Dependencies
+### Quick Setup (Automated)
+
+For Windows:
+```bash
+setup.bat
+```
+
+For Linux/Mac:
+```bash
+chmod +x setup.sh
+./setup.sh
+```
+
+This will automatically:
+- Create `.env` file from template
+- Install all dependencies
+- Initialize database
+- Show next steps
+
+### Manual Setup (Step by Step)
+
+### 1. Setup Environment (Optional)
+
+The system works with default settings, but you can customize configuration:
+
+```bash
+# Copy environment template (optional)
+cp .env.example .env
+
+# Edit .env file to customize settings
+# Contains 11 essential configuration options
+# Default values work for development
+```
+
+### 2. Install Dependencies
 
 ```bash
 npm run install:all
 ```
 
-### 2. Initialize Database
+### 3. Initialize Database
 
 ```bash
 npm run db:init
 ```
 
-### 3. Create Sample Data (Optional)
+### 4. Create Sample Data (Optional)
 
 To populate the dashboard with realistic test data:
 
@@ -107,7 +141,7 @@ npm run db:sample
 
 This creates 8 sample orders with various statuses, customer information, and ADL evidence.
 
-### 4. Start Development Servers
+### 5. Start Development Servers
 
 ```bash
 npm run dev
@@ -118,7 +152,7 @@ This will start:
 - Backend API: http://localhost:3001
 - Frontend UI: http://localhost:3000
 
-### 4. Open the Application
+### 6. Open the Application
 
 Navigate to: **http://localhost:3000**
 
@@ -172,7 +206,8 @@ http://localhost:3001/api
 
 ### Interactive API Documentation
 
-**Swagger UI**: http://localhost:3001/api-docs
+**Swagger UI**: http://localhost:3001/api-docs  
+**OpenAPI JSON**: http://localhost:3001/api-docs/openapi.json
 
 ### Example API Usage
 
@@ -226,6 +261,7 @@ order-management-system/
 │   │   └── server.ts          # Express server
 │   ├── __tests__/             # Unit tests
 │   ├── scripts/               # Database scripts
+│   ├── public/                # Static files (OpenAPI JSON)
 │   └── package.json
 ├── frontend/                   # React app
 │   ├── src/
@@ -233,6 +269,8 @@ order-management-system/
 │   │   ├── types.ts           # Frontend types
 │   │   └── index.css          # Styles
 │   └── package.json
+├── .env.example               # Environment configuration template
+├── postman-collection.json    # API testing collection
 ├── package.json               # Root package.json
 └── README.md
 ```
@@ -343,6 +381,34 @@ npm run install:all
    ```
 
 3. Serve the frontend build files from a web server
+
+## Changelog
+
+### VT2 Polish (v1.1.0) - October 2025
+
+#### 🔧 **Developer Experience**
+- ✅ **Environment Configuration**: Added `.env.example` with 11 essential configuration options (cleaned up from 20+ unused variables)
+- ✅ **API Testing Collection**: Complete Postman/Thunder collection with full workflow (Create → Assign → ADL → Complete)
+- ✅ **Static OpenAPI Export**: Build-time OpenAPI JSON export available at `/api-docs/openapi.json`
+
+#### 🚀 **Technical Enhancements**
+- ✅ **Build Process**: Integrated OpenAPI JSON export into build pipeline
+- ✅ **Static File Serving**: Added static file serving for OpenAPI documentation
+
+#### 📋 **API Workflow Collection**
+The Postman collection includes:
+1. **Health Check** - Verify API status
+2. **Create Order** - New order with customer details
+3. **Assign Master** - Automatic master assignment
+4. **Attach ADL Evidence** - Photo evidence with GPS
+5. **Complete Order** - Final order completion
+6. **Verification** - Confirm completed order
+
+#### 🔗 **New Endpoints**
+- `GET /api-docs/openapi.json` - Static OpenAPI specification
+- Enhanced Swagger UI with direct JSON access
+
+---
 
 ## License
 

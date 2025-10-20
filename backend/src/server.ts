@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import swaggerUi from "swagger-ui-express";
+import path from "path";
 import { config } from "./config";
 import { swaggerSpec } from "./config/swagger";
 import { requestLogger, Logger } from "./middleware/logger";
@@ -24,6 +25,9 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
+
+// Serve static files (including OpenAPI JSON)
+app.use('/api-docs', express.static(path.join(__dirname, '..', 'public')));
 
 // Swagger documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
@@ -109,6 +113,7 @@ const server = app.listen(config.server.port, () => {
   Logger.info(`🚀 Server running on http://localhost:${config.server.port}`);
   Logger.info(`📊 API available at http://localhost:${config.server.port}/api`);
   Logger.info(`📚 API Documentation: http://localhost:${config.server.port}/api-docs`);
+  Logger.info(`📄 OpenAPI JSON: http://localhost:${config.server.port}/api-docs/openapi.json`);
   Logger.info(`🌍 Environment: ${config.app.environment}`);
 });
 

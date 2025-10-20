@@ -1,0 +1,274 @@
+{
+  "info": {
+    "name": "Order Management System API",
+    "description": "Complete API workflow: Create → Assign → Attach ADL → Complete",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3001/api",
+      "type": "string"
+    },
+    {
+      "key": "orderId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        },
+        "description": "Check if the API server is running"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Orders",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/orders",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders"]
+        },
+        "description": "Retrieve all orders in the system"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Masters",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/masters",
+          "host": ["{{baseUrl}}"],
+          "path": ["masters"]
+        },
+        "description": "Retrieve all masters with their current load and availability"
+      },
+      "response": []
+    },
+    {
+      "name": "1. Create New Order",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if (pm.response.code === 201) {",
+              "    const responseJson = pm.response.json();",
+              "    pm.collectionVariables.set('orderId', responseJson.id);",
+              "    console.log('Order created with ID:', responseJson.id);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Fix leaky faucet\",\n  \"description\": \"Customer reports a persistent drip from the kitchen faucet. Water is pooling on the floor.\",\n  \"customerName\": \"Alice Smith\",\n  \"customerPhone\": \"+1-555-1234\",\n  \"geo\": {\n    \"lat\": 40.7128,\n    \"lng\": -74.0060\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/orders",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders"]
+        },
+        "description": "Create a new order with customer and location information"
+      },
+      "response": []
+    },
+    {
+      "name": "2. Get Order Details",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/orders/{{orderId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders", "{{orderId}}"]
+        },
+        "description": "Get detailed information about the created order"
+      },
+      "response": []
+    },
+    {
+      "name": "3. Assign Master to Order",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if (pm.response.code === 200) {",
+              "    const responseJson = pm.response.json();",
+              "    console.log('Master assigned:', responseJson.master.name);",
+              "    console.log('Order status updated to:', responseJson.master ? 'assigned' : 'new');",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/orders/{{orderId}}/assign",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders", "{{orderId}}", "assign"]
+        },
+        "description": "Automatically assign the best available master to the order"
+      },
+      "response": []
+    },
+    {
+      "name": "4. Attach ADL Evidence (Photo)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if (pm.response.code === 201) {",
+              "    const responseJson = pm.response.json();",
+              "    console.log('ADL evidence attached:', responseJson.type, 'at', responseJson.capturedAt);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"type\": \"photo\",\n  \"url\": \"https://example.com/kitchen-faucet-before.jpg\",\n  \"gps\": {\n    \"lat\": 40.7128,\n    \"lng\": -74.0060\n  },\n  \"capturedAt\": \"2025-10-20T10:30:00.000Z\",\n  \"meta\": {\n    \"description\": \"Before repair - leak visible under sink\"\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/orders/{{orderId}}/adl",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders", "{{orderId}}", "adl"]
+        },
+        "description": "Attach After Delivery Live (ADL) evidence with GPS coordinates and timestamp"
+      },
+      "response": []
+    },
+    {
+      "name": "5. Attach ADL Evidence (After Photo)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if (pm.response.code === 201) {",
+              "    const responseJson = pm.response.json();",
+              "    console.log('Second ADL evidence attached:', responseJson.type);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"type\": \"photo\",\n  \"url\": \"https://example.com/kitchen-faucet-after.jpg\",\n  \"gps\": {\n    \"lat\": 40.7128,\n    \"lng\": -74.0060\n  },\n  \"capturedAt\": \"2025-10-20T12:45:00.000Z\",\n  \"meta\": {\n    \"description\": \"After repair - leak fixed, faucet working properly\"\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/orders/{{orderId}}/adl",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders", "{{orderId}}", "adl"]
+        },
+        "description": "Attach second ADL evidence showing completed work"
+      },
+      "response": []
+    },
+    {
+      "name": "6. Complete Order",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if (pm.response.code === 200) {",
+              "    console.log('Order completed successfully!');",
+              "    console.log('Order status: completed');",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/orders/{{orderId}}/complete",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders", "{{orderId}}", "complete"]
+        },
+        "description": "Mark the order as completed (requires ADL evidence to be attached first)"
+      },
+      "response": []
+    },
+    {
+      "name": "7. Verify Completed Order",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/orders/{{orderId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders", "{{orderId}}"]
+        },
+        "description": "Verify the order is completed and has ADL evidence attached"
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Set timestamp for dynamic requests",
+          "const now = new Date().toISOString();",
+          "pm.globals.set('timestamp', now);"
+        ]
+      }
+    }
+  ]
+}
